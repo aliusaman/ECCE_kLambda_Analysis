@@ -161,13 +161,17 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   event_itt = 0;
 
   // create appropriate directories
+  
+  /*
+  // histograms to test events
 
   h1_trackCharge_Dist = new TH1F("trackCharge_Dist", "Distribution of Charges of Tracks; q [x 1.60 x 10^{-19}]", 10, -2, 2);
   h1_trackPz_Dist = new TH1F("trackPz_Dist", "Distribution of P_{z} of Tracks; p_{z} [GeV/c]", 100, -100, 100);
   h1_nTracks_Dist = new TH1F("nTracks_Dist", "Number of Tracks in Events; # tracks", 10, 0, 10);
-  h2_trackPvsTheta_Dist = new TH2F("tracksPvsTheta", "Distribution of P vs #theta for Tracks; p [GeV/c]; #theta [deg]", 100, 0, 100, 100, -180, 180); 
+  h2_trackPvsTheta_Dist = new TH2F("tracksPvsTheta", "Distribution of P vs #theta for Tracks; p [GeV/c]; #theta [deg]", 100, 0, 100, 100, -180, 180);*/ 
 
-  //gDirectory->mkdir("Lambda_Truth");
+  gDirectory->mkdir("Lambda_Truth");
+  gDirectory->cd("Lambda_Truth");
   h1_lTruth_E = new TH1F("lTruth_E", "#Lambda Truth Energy Distribution; E [GeV]", 200, 0, 40);
   h1_lTruth_P = new TH1F("lTruth_P", "#Lambda Truth Momentum Distribution; p [GeV/c]", 200, 0, 40);
   h1_lTruth_Px = new TH1F("lTruth_Px", "#Lambda Truth P_{x} Distribution; p_{x} [GeV/c]", 200, 0, 40);
@@ -177,11 +181,10 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   h1_lTruth_Phi = new TH1F("lTruth_Phi", "#Lambda Truth #phi Distribution; #phi [deg]", 200, -180, 180);
   h1_lTruth_PxPy = new TH2F("lTruth_PxPy", "#Lambda Truth P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, 0, 40, 200, 0, 40);
   h1_lTruth_ThetaP = new TH2F("lTruth_ThetaP", "#Lambda Truth #theta vs P Distribution; #theta [deg]; p[GeV/c]", 200, 0, 3, 200, 0, 40);
-  //gDirectory->cd("Lambda_Truth");
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
 
-  //gDirectory->mkdir("Neutron_Truth");
-  //gDirectory->cd("Neutron_Truth");
+  gDirectory->mkdir("Neutron_Truth");
+  gDirectory->cd("Neutron_Truth");
   h1_nTruth_E = new TH1F("nTruth_E", "Neutron Truth Energy Distribution; E [GeV]", 200, 0, 40);
   h1_nTruth_P = new TH1F("nTruth_P", "Neutron Truth Momentum Distribution; p [GeV/c]", 200, 0, 40);
   h1_nTruth_Px = new TH1F("nTruth_Px", "Neutron Truth P_{x} Distribution; p_{x} [GeV/c]", 200, 0, 40);
@@ -191,10 +194,10 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   h1_nTruth_Phi = new TH1F("nTruth_Phi", "Neutron Truth #phi Distribution; #phi [deg]", 200, -180, 180);
   h1_nTruth_PxPy = new TH2F("nTruth_PxPy", "Neutron Truth P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{x} [GeV/c]", 200, 0, 40, 200, 0, 40);
   h1_nTruth_ThetaP = new TH2F("nTruth_ThetaP", "Neutron Truth #theta vs P Distribution; #theta [deg]; p [GeV/c]", 200, 0, 3, 200, 0, 40);
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
 
-  //gDirectory->mkdir("Electron_Truth");
-  //gDirectory->cd("Electron_Truth");
+  gDirectory->mkdir("Electron_Truth");
+  gDirectory->cd("Electron_Truth");
   h1_eTruth_E = new TH1F("eTruth_E", "Scattered Electron Truth Energy Distribution; E [GeV]", 200, 0, 8);
   h1_eTruth_P = new TH1F("eTruth_P", "Scattered Electron Truth Momentum Distribution; p [GeV/c]", 200, 0, 8);
   h1_eTruth_Px = new TH1F("eTruth_Px", "Scattered Electron Truth P_{x} Distribution; p_{x} [GeV/c]", 200 , 0, 8);
@@ -204,20 +207,20 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   h1_eTruth_Phi = new TH1F("eTruth_Phi", "Scattered Electron Truth #phi Distribution; #phi [deg]", 200, -180, 180);
   h1_eTruth_PxPy = new TH2F("eTruth_PxPy", "Scattered Electron Truth P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, 0, 8, 200, 0, 8);
   h1_eTruth_ThetaP = new TH2F("eTruth_ThetaP", "Scattered Electron Truth #theta vs P Distribution; #theta [deg]; p [GeV/c]", 200, 120, 160, 200, 0, 8);
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
 
-  //gDirectory->mkdir("Kaon_Truth");
-  //gDirectory->cd("Kaon_Truth");
+  gDirectory->mkdir("Kaon_Truth");
+  gDirectory->cd("Kaon_Truth");
   h1_kTruth_E = new TH1F("kTruth_E", "Kaon Truth Energy Distribution; E [GeV]", 200, 0, 25);
   h1_kTruth_P = new TH1F("kTruth_P", "Kaon Truth Momentum Distribution; p [GeV/c]", 200, 0, 25);
   h1_kTruth_Px = new TH1F("kTruth_Px", "Kaon Truth P_{x} Distribution; p_{x} [GeV/c]", 200, 0, 25);
   h1_kTruth_Py = new TH1F("kTruth_Py", "Kaon Truth P_{y} Distribution; p_{y} [GeV/c]", 200, 0, 25);
-  h1_kTruth_Pz = new TH1F("kTruth_E", "Kaon Truth P_{z} Distribution; p_{z} [GeV/c]", 200, 0, 25);
+  h1_kTruth_Pz = new TH1F("kTruth_Pz", "Kaon Truth P_{z} Distribution; p_{z} [GeV/c]", 200, 0, 25);
   h1_kTruth_Theta = new TH1F("kTruth_Theta", "Kaon Truth #theta Distribution; #theta [deg]", 200, 0, 60);
   h1_kTruth_Phi = new TH1F("kTruth_Phi", "Kaon Truth #phi Distribution; #phi [deg]", 200, -180, 180);
-  h1_kTruth_PxPy = new TH2F("kTruth_PxPy", "Kaon Truth P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, 0, 25, 0, 25);
+  h1_kTruth_PxPy = new TH2F("kTruth_PxPy", "Kaon Truth P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, 0, 25, 200, 0, 25);
   h1_kTruth_ThetaP = new TH2F("kTruth_ThetaP", "Kaon Truth #theta vs P Distribution; #theta [deg]; p [GeV/c]", 200, 0, 60, 200, 0, 25);
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
 
   /*gDirectory->mkdir("Pion_Truth");
   gDirectory->cd("Pion_Truth");
@@ -232,8 +235,8 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   h1_pTruth_ThetaP = new TH2F("pTruth_ThetaP", "Pion Truth #theta vs P Distribution");
   gDirectory->cd("../");*/
 
-  //gDirectory->mkdir("Gamma1_Truth");
-  //gDirectory->cd("Gamma1_Truth");
+  gDirectory->mkdir("Photon1_Truth");
+  gDirectory->cd("Photon1_Truth");
   h1_g1Truth_E = new TH1F("g1Truth_E", "#gamma_{1} Truth Energy Distribution; E [GeV]", 200, -4, 2);
   h1_g1Truth_P = new TH1F("g1Truth_P", "#gamma_{1} Truth Momentum Distribution; p [GeV/c]", 200, 0, 8);
   h1_g1Truth_Px = new TH1F("g1Truth_Px", "#gamma_{1} Truth P_{x} Distribution; p_{x} [GeV/c]", 200, -8, 8);
@@ -243,10 +246,10 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   h1_g1Truth_Phi = new TH1F("g1Truth_Phi", "#gamma_{1} Truth #phi Distribution; #phi [deg]", 200, -180, 180);
   h1_g1Truth_PxPy = new TH2F("g1Truth_PxPy", "#gamma_{1} Truth P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, -8, 8, 200, -8, 8);
   h1_g1Truth_ThetaP = new TH2F("g1Truth_ThetaP", "#gamma_{1} Truth #theta vs P Distribution; #theta [deg]; p [GeV/c]", 200, 90, 120, 200, 0, 8);
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
 
-  //gDirectory->mkdir("Gamma2_Truth");
-  //gDirectory->cd("Gamma2_Truth");
+  gDirectory->mkdir("Photon2_Truth");
+  gDirectory->cd("Photon2_Truth");
   h1_g2Truth_E = new TH1F("g2Truth_E", "#gamma_{2} Truth Energy Distribution; E [GeV]", 200, -4, 2);
   h1_g2Truth_P = new TH1F("g2Truth_P", "#gamma_{2} Truth Momentum Distribution; p [GeV/c]", 200, 0, 8);
   h1_g2Truth_Px = new TH1F("g2Truth_Px", "#gamma_{2} Truth P_{x} Distribution; p_{x} [GeV/c]", 200, -8, 8);
@@ -256,28 +259,28 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   h1_g2Truth_Phi = new TH1F("g2Truth_Phi", "#gamma_{2} Truth #phi Distribution; #phi [deg]", 200, -180, 180);
   h1_g2Truth_PxPy = new TH2F("g2Truth_PxPy", "#gamma_{2} Truth P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, -8, 8, 200, -8, 8);
   h1_g2Truth_ThetaP = new TH2F("g2Truth_ThetaP", "#gamma_{2} Truth #theta vs P Distribution; #theta [deg]; p [GeV/c]", 200, 90, 120, 200, 0, 8);
-  //gDirectory->cd("../")
+  gDirectory->cd("../");
 
-  //gDirectory->mkdir("Kinematics");
-  //gDirectory->cd("Kinematics");
+  gDirectory->mkdir("Kinematics");
+  gDirectory->cd("Kinematics");
   h1_Q2_Dist = new TH1F("Q2_Dist", "Q^{2} Distribution; Q^{2} [GeV^{2}]", 200, 0, 25);
   h1_W_Dist = new TH1F("W_Dist", "W Distribution; W} [GeV]", 200, 0, 15);
   h1_t_Dist = new TH1F("t_Dist", "-t Distribution; -t [GeV^{2}]", 200, 0, 8);
   h1_xb_Dist = new TH1F("xb_Dist", "x_{b} Distribution; x_{b}", 200, 0, 0.4);
   h1_xi_Dist = new TH1F("xi_Dist", "#xi Distribution; #xi", 200, 0, 0.6);
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
 
-  //gDirectory->mkdir("Kinematics_Truth");
-  //gDirectory->cd("Kinematics_Truth");
+  gDirectory->mkdir("Kinematics_Truth");
+  gDirectory->cd("Kinematics_Truth");
   h1_Q2Truth_Dist = new TH1F("Q2Truth_Dist", "#frac{#Delta Q^{2}}{Truth Q^{2}} Distribution; (%)", 100, -50, 50);
   h1_WTruth_Dist = new TH1F("WTruth_Dist", "#frac{#Delta W}{Truth W} Distribution; (%)", 100, -50, 50);
   h1_tTruth_Dist = new TH1F("tTruth_Dist", "#frac{#Delta t}{Truth t} Distribution; (%)", 100, -50, 50);
   h1_xbTruth_Dist = new TH1F("xbTruth_Dist", "#frac{#Delta x_{b}}{Truth x_{b}} Distribution; (%)", 100, -50, 50);
   h1_xiTruth_Dist = new TH1F("xiTruth_Dist", "#frac{#Delta #xi}{Truth #xi} Distribution; (%)", 100, -50, 50);
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
 
-  //gDirectory->mkdir("Kinematics_Coverage");
-  //gDirectory->cd("Kinematics_Coverage");
+  gDirectory->mkdir("Kinematics_Coverage");
+  gDirectory->cd("Kinematics_Coverage");
   h2_tTruthvQ2_0_25_Dist = new TH2F("tTruthvQ2_0_25_Dist", "#frac{#Delta t}{Truth t} vs Q^{2} Distribution for 0 GeV^{2} <= Q^{2} < 2.5 GeV^{2}; (%); [GeV^{2}]", 100, -50, 50, 200, 0, 25);
   h2_tTruthvQ2_25_375_Dist = new TH2F("tTruthvQ2_25_375_Dist", "#frac{#Delta t}{Truth t} vs Q^{2} Distribution for 2.5 GeV^{2} <= Q^{2} < 3.75 GeV^{2}; (%); [GeV^{2}]", 100, -50, 50, 200, 0, 25);
   h2_tTruthvQ2_375_5_Dist = new TH2F("tTruthvQ2_375_5_Dist", "#frac{#Delta t}{Truth t} vs Q^{2} Distribution for 3.75 GeV^{2} <= Q^{2} < 5 GeV^{2}; (%); [GeV^{2}]", 100, -50, 50, 200, 0, 25);
@@ -287,7 +290,59 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   h2_tTruthvQ2_875_10_Dist = new TH2F("tTruthvQ2_875_10_Dist", "#frac{#Delta t}{Truth t} vs Q^{2} Distribution for 8.75 GeV^{2} <= Q^{2} < 10 GeV^{2}; (%); [GeV^{2}]", 100, -50, 50, 200, 0, 25);
   h2_tTruthvQ2_10_1125_Dist = new TH2F("tTruthvQ2_10_1125_Dist", "#frac{#Delta t}{Truth t} vs Q^{2} Distribution for 10 GeV^{2} <= Q^{2} < 11.25 GeV^{2}; (%); [GeV^{2}]", 100, -50, 50, 200, 0, 25);
   h2_tTruthvQ2_g1125_Dist = new TH2F("tTruthvQ2_g1125_Dist", "#frac{#Delta t}{Truth t} vs Q^{2} Distribution for Q^{2} >= 11.25 GeV^{2}; (%); [GeV^{2}]", 100, -50, 50, 200, 0, 25);
-  //gDirectory->cd("../");
+  gDirectory->cd("../");
+
+  gDirectory->mkdir("Kaon_Information");
+  gDirectory->cd("Kaon_Information");
+  h1_k_E = new TH1F("k_E", "Kaon Energy Distribution; E [GeV]", 200, 0, 25);
+  h1_k_P = new TH1F("k_P", "Kaon Momentum Distribution; p [GeV/c]", 200, 0, 25);
+  h1_k_Px = new TH1F("k_Px", "Kaon P_{x} Distribution; p_{x} [GeV/c]", 200, 0, 25);
+  h1_k_Py = new TH1F("k_Py", "Kaon P_{y} Distribution; p_{y} [GeV/c]", 200, 0, 25);
+  h1_k_Pz = new TH1F("k_E", "Kaon P_{z} Distribution; p_{z} [GeV/c]", 200, 0, 25);
+  h1_k_Theta = new TH1F("k_Theta", "Kaon #theta Distribution; #theta [deg]", 200, 0, 60);
+  h1_k_Phi = new TH1F("k_Phi", "Kaon #phi Distribution; #phi [deg]", 200, -180, 180);
+  h2_k_PxPy = new TH2F("k_PxPy", "Kaon P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, 0, 25, 200, 0, 25);
+  h2_k_ThetaP = new TH2F("k_ThetaP", "Kaon #theta vs P Distribution; #theta [deg]; p [GeV/c]", 200, 0, 60, 200, 0, 25);
+  gDirectory->cd("../");
+
+  gDirectory->mkdir("Scattered_Electron_Information");
+  gDirectory->cd("Scattered_Electron_Information");
+  h1_e_E = new TH1F("e_E", "Electron Energy Distribution; E [GeV]", 200, 0, 25);
+  h1_e_P = new TH1F("e_P", "Electron Momentum Distribution; p [GeV/c]", 200, 0, 25);
+  h1_e_Px = new TH1F("e_Px", "Electron P_{x} Distribution; p_{x} [GeV/c]", 200, 0, 25);
+  h1_e_Py = new TH1F("e_Py", "Electron P_{y} Distribution; p_{y} [GeV/c]", 200, 0, 25);
+  h1_e_Pz = new TH1F("e_E", "Electron P_{z} Distribution; p_{z} [GeV/c]", 200, 0, 25);
+  h1_e_Theta = new TH1F("e_Theta", "Electron #theta Distribution; #theta [deg]", 200, 0, 60);
+  h1_e_Phi = new TH1F("e_Phi", "Electron #phi Distribution; #phi [deg]", 200, -180, 180);
+  h2_e_PxPy = new TH2F("e_PxPy", "Electron P_{x} vs P_{y} Distribution; p_{x} [GeV/c]; p_{y} [GeV/c]", 200, 0, 25, 200, 0, 25);
+  h2_e_ThetaP = new TH2F("e_ThetaP", "Electron #theta vs P Distribution; #theta [deg]; p [GeV/c]", 200, 0, 60, 200, 0, 25);
+  gDirectory->cd("../");
+
+  gDirectory->mkdir("Kaon_Truth_Comparison");
+  gDirectory->cd("Kaon_Truth_Comparison");
+  h1_kTruthC_E = new TH1F("kTruthC_E", "Kaon #frac{#Delta E}{Truth E} Distribution; (%)", 100, -50, 50);
+  h1_kTruthC_P = new TH1F("kTruthC_P", "Kaon #frac{#Delta P}{Truth P} Distribution; (%)", 100, -50, 50);
+  h1_kTruthC_Px = new TH1F("kTruthC_Px", "Kaon #frac{#Delta P_{x}}{Truth P_{x}} Distribution; (%)", 100, -50, 50);
+  h1_kTruthC_Py = new TH1F("kTruthC_Py", "Kaon #frac{#Delta P_{y}}{Truth P_{y}} Distribution; (%)", 100, -50, 50);
+  h1_kTruthC_Pz = new TH1F("kTruthC_Pz", "Kaon #frac{#Delta P_{z}}{Truth P_{z}} Distribution; (%)", 100, -50, 50);
+  h1_kTruthC_Theta = new TH1F("kTruthC_Theta", "Kaon #frac{#Delta #theta}{Truth #theta} Distribution; (%)", 100, -50, 50);
+  h1_kTruthC_Phi = new TH1F("kTruthC_Phi", "Kaon #frac{#Delta #phi}{Truth #phi} Distribution; (%)", 100, -50, 50);
+  h2_kTruthC_PxPy = new TH2F("kTruthC_PxPy", "Kaon #frac{#Delta P_{x}}{Truth P_{x}} vs #frac{#Delta P_{y}}{Truth P_{Y}} Distribution; (%); (%)", 100, -50, 50, 100, -50, 50);
+  h2_kTruthC_ThetaP = new TH2F("kTruthC_ThetaP", "Kaon #frac{#Delta #theta}{Truth #theta} vs #frac{#Delta P}{Truth P} Distribution; (%); (%)", 100, -50, 50, 100, -50, 50);
+  gDirectory->cd("../");
+
+  gDirectory->mkdir("Electron_Truth_Comparison");
+  gDirectory->cd("Electron_Truth_Comparison");
+  h1_eTruthC_E = new TH1F("eTruthC_E", "Electron #frac{#Delta E}{Truth E} Distribution; (%)", 100, -50, 50);
+  h1_eTruthC_P = new TH1F("eTruthC_P", "Electron #frac{#Delta P}{Truth P} Distribution; (%)", 100, -50, 50);
+  h1_eTruthC_Px = new TH1F("eTruthC_Px", "Electron #frac{#Delta P_{x}}{Truth P_{x}} Distribution; (%)", 100, -50, 50);
+  h1_eTruthC_Py = new TH1F("eTruthC_Py", "Electron #frac{#Delta P_{y}}{Truth P_{y}} Distribution; (%)", 100, -50, 50);
+  h1_eTruthC_Pz = new TH1F("eTruthC_Pz", "Electron #frac{#Delta P_{z}}{Truth P_{z}} Distribution; (%)", 100, -50, 50);
+  h1_eTruthC_Theta = new TH1F("eTruthC_Theta", "Electron #frac{#Delta #theta}{Truth #theta} Distribution; (%)", 100, -50, 50);
+  h1_eTruthC_Phi = new TH1F("eTruthC_Phi", "Electron #frac{#Delta #phi}{Truth #phi} Distribution; (%)", 100, -50, 50);
+  h2_eTruthC_PxPy = new TH2F("eTruthC_PxPy", "Electron #frac{#Delta P_{x}}{Truth P_{x}} vs #frac{#Delta P_{y}}{Truth P_{Y}} Distribution; (%); (%)", 100, -50, 50, 100, -50, 50);
+  h2_eTruthC_ThetaP = new TH2F("eTruthC_ThetaP", "Electron #frac{#Delta #theta}{Truth #theta} vs #frac{#Delta P}{Truth P} Distribution; (%); (%)", 100, -50, 50, 100, -50, 50);
+  gDirectory->cd("../");
 
   return Fun4AllReturnCodes::EVENT_OK;
 }
@@ -316,8 +371,9 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
 
 
   /*
-  // track testing code
+  // event testing code
   // Get track map
+
   SvtxTrackMap* trackmap = findNode::getClass<SvtxTrackMap>(topNode, "SvtxTrackMap");
 
   if (!trackmap)
@@ -351,6 +407,8 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
     SvtxTrackMap* trackmap = findNode::getClass<SvtxTrackMap>(topNode, "SvtxTrackMap");
     // Get MC truth info
     PHG4TruthInfoContainer *truthinfo = findNode::getClass<PHG4TruthInfoContainer>(topNode, "G4TruthInfo");
+    // Get ZDC hits
+    PHG4HitContainer* hits = findNode::getClass<PHG4HitContainer>(topNode, "G4HIT_ZDC");
     // Get the primary particle range
     PHG4TruthInfoContainer::Range range = truthinfo->GetPrimaryParticleRange();
     //Get the secondary particle range
@@ -358,18 +416,20 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
 
     if (!trackmap) {
       trackmap = findNode::getClass<SvtxTrackMap>(topNode, "TrackMap");
-      if (!trackmap)
-    	{
-    	  cout << "ECCE_kLambda::process_event - Error can not find DST trackmap node SvtxTrackMap" << endl;
-    	  exit(-1);
-    	}
+      if (!trackmap){
+    	cout << "ECCE_kLambda::process_event - Error can not find DST trackmap node SvtxTrackMap" << endl;
+    	exit(-1);
+      }
     }
 
-    if (!truthinfo)
-      {
-	cout << PHWHERE << "PHG4TruthInfoContainer node is missing, can't collect G4 truth particles" << endl;
-	return Fun4AllReturnCodes::EVENT_OK;
-      }
+    if (!truthinfo) {
+      cout << PHWHERE << "PHG4TruthInfoContainer node is missing, can't collect G4 truth particles" << endl;
+      return Fun4AllReturnCodes::EVENT_OK;
+    }
+
+    /* if (hits) {
+      std::cout << "zdc" << endl;
+    } */
 
     /// Loop over the G4 truth (stable) particles
     for (PHG4TruthInfoContainer::ConstIterator iter = range.first; iter != range.second; ++iter)
@@ -464,8 +524,6 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
 	  e4VectSmeared.SetPxPyPzE(eVectSmeared.x(), eVectSmeared.y(), eVectSmeared.z(), sqrt(pow(eVect.Mag(), 2)+pow(mElec,2)));
 	}
       }
-
-    std::cout << "here" << endl;
 
     // Now have relevant information from this event, fill some histograms and calculate some stuff
 
@@ -580,10 +638,77 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
        	h2_tTruthvQ2_0_25_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
       }
 
-      if (Q2 >= 0 && Q2 < 2.5) {   
-       	h2_tTruthvQ2_0_25_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      else if (Q2 >= 2.5 && Q2 < 3.75) {   
+       	h2_tTruthvQ2_25_375_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
       }
 
+      else if (Q2 >= 3.75 && Q2 < 5) {   
+       	h2_tTruthvQ2_375_5_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      }
+
+      else if (Q2 >= 5 && Q2 < 6.25) {   
+       	h2_tTruthvQ2_5_625_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      }
+
+      else if (Q2 >= 6.25 && Q2 < 7.5) {   
+       	h2_tTruthvQ2_625_75_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      }
+
+      else if (Q2 >= 7.5 && Q2 < 8.75) {   
+       	h2_tTruthvQ2_75_875_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      }
+
+      else if (Q2 >= 8.75 && Q2 < 10) {   
+       	h2_tTruthvQ2_875_10_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      }
+
+      else if (Q2 >= 10 && Q2 < 11.25) {   
+       	h2_tTruthvQ2_10_1125_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      }
+
+      else if (Q2 >= 11.25) {   
+       	h2_tTruthvQ2_g1125_Dist->Fill(((t-t_truth)/t_truth)*100, Q2);
+      }
+
+    h1_k_E->Fill(kaon4Vect.E());
+    h1_k_P->Fill(kaon4Vect.P());
+    h1_k_Px->Fill(kaon4Vect.Px());
+    h1_k_Py->Fill(kaon4Vect.Py());
+    h1_k_Pz->Fill(kaon4Vect.Pz());
+    h1_k_Theta->Fill(kaon4Vect.Theta()*TMath::RadToDeg());
+    h1_k_Phi->Fill(kaon4Vect.Phi()*TMath::RadToDeg());
+    h2_k_PxPy->Fill(kaon4Vect.Px(),kaon4Vect.Py());
+    h2_k_ThetaP->Fill(kaon4Vect.Theta()*TMath::RadToDeg(),kaon4Vect.P());
+
+    h1_e_E->Fill(e4Vect.E());
+    h1_e_P->Fill(e4Vect.P());
+    h1_e_Px->Fill(e4Vect.Px());
+    h1_e_Py->Fill(e4Vect.Py());
+    h1_e_Pz->Fill(e4Vect.Pz());
+    h1_e_Theta->Fill(e4Vect.Theta()*TMath::RadToDeg());
+    h1_e_Phi->Fill(e4Vect.Phi()*TMath::RadToDeg());
+    h2_e_PxPy->Fill(e4Vect.Px(),e4Vect.Py());
+    h2_e_ThetaP->Fill(e4Vect.Theta()*TMath::RadToDeg(),e4Vect.P());
+
+    h1_kTruthC_E->Fill(((kaon4Vect.E()-kaon4VectTruth.E())/kaon4VectTruth.E())*100);
+    h1_kTruthC_P->Fill(((kaon4Vect.P()-kaon4VectTruth.P())/kaon4VectTruth.P())*100);
+    h1_kTruthC_Px->Fill(((kaon4Vect.Px()-kaon4VectTruth.Px())/kaon4VectTruth.Px())*100);
+    h1_kTruthC_Py->Fill(((kaon4Vect.Py()-kaon4VectTruth.Py())/kaon4VectTruth.Py())*100);
+    h1_kTruthC_Pz->Fill(((kaon4Vect.Pz()-kaon4VectTruth.Pz())/kaon4VectTruth.Pz())*100);
+    h1_kTruthC_Theta->Fill(((kaon4Vect.Theta()*TMath::RadToDeg()-kaon4VectTruth.Theta()*TMath::RadToDeg())/kaon4VectTruth.Theta()*TMath::RadToDeg())*100);
+    h1_kTruthC_Phi->Fill(((kaon4Vect.Phi()*TMath::RadToDeg()-kaon4VectTruth.Phi()*TMath::RadToDeg())/kaon4VectTruth.Phi()*TMath::RadToDeg())*100);
+    h2_kTruthC_PxPy->Fill(((kaon4Vect.Px()-kaon4VectTruth.Px())/kaon4VectTruth.Px())*100,((kaon4Vect.Py()-kaon4VectTruth.Py())/kaon4VectTruth.Py())*100);
+    h2_kTruthC_ThetaP->Fill(((kaon4Vect.Theta()*TMath::RadToDeg()-kaon4VectTruth.Theta()*TMath::RadToDeg())/kaon4VectTruth.Theta()*TMath::RadToDeg())*100,((kaon4Vect.P()-kaon4VectTruth.P())/kaon4VectTruth.P())*100);
+
+    h1_eTruthC_E->Fill(((e4Vect.E()-e4VectTruth.E())/e4VectTruth.E())*100);
+    h1_eTruthC_P->Fill(((e4Vect.P()-e4VectTruth.P())/e4VectTruth.P())*100);
+    h1_eTruthC_Px->Fill(((e4Vect.Px()-e4VectTruth.Px())/e4VectTruth.Px())*100);
+    h1_eTruthC_Py->Fill(((e4Vect.Py()-e4VectTruth.Py())/e4VectTruth.Py())*100);
+    h1_eTruthC_Pz->Fill(((e4Vect.Pz()-e4VectTruth.Pz())/e4VectTruth.Pz())*100);
+    h1_eTruthC_Theta->Fill(((e4Vect.Theta()*TMath::RadToDeg()-e4VectTruth.Theta()*TMath::RadToDeg())/e4VectTruth.Theta()*TMath::RadToDeg())*100);
+    h1_eTruthC_Phi->Fill(((e4Vect.Phi()*TMath::RadToDeg()-e4VectTruth.Phi()*TMath::RadToDeg())/e4VectTruth.Phi()*TMath::RadToDeg())*100);
+    h2_eTruthC_PxPy->Fill(((e4Vect.Px()-e4VectTruth.Px())/e4VectTruth.Px())*100,((e4Vect.Py()-e4VectTruth.Py())/e4VectTruth.Py())*100);
+    h2_eTruthC_ThetaP->Fill(((e4Vect.Theta()*TMath::RadToDeg()-e4VectTruth.Theta()*TMath::RadToDeg())/e4VectTruth.Theta()*TMath::RadToDeg())*100,((e4Vect.P()-e4VectTruth.P())/e4VectTruth.P())*100);
     }
   }
 

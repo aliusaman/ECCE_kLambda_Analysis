@@ -331,6 +331,47 @@ class ECCE_kLambda : public SubsysReco
   TH2F* h2_tTruthvQ2_10_1125_Dist;
   TH2F* h2_tTruthvQ2_g1125_Dist;
 
+  TH1F* h1_k_E;
+  TH1F* h1_k_P;
+  TH1F* h1_k_Px;
+  TH1F* h1_k_Py;
+  TH1F* h1_k_Pz;
+  TH1F* h1_k_Theta;
+  TH1F* h1_k_Phi;
+  TH2F* h2_k_PxPy;
+  TH2F* h2_k_ThetaP;
+
+  TH1F* h1_e_E;
+  TH1F* h1_e_P;
+  TH1F* h1_e_Px;
+  TH1F* h1_e_Py;
+  TH1F* h1_e_Pz;
+  TH1F* h1_e_Theta;
+  TH1F* h1_e_Phi;
+  TH2F* h2_e_PxPy;
+  TH2F* h2_e_ThetaP;
+
+  TH1F* h1_kTruthC_E;
+  TH1F* h1_kTruthC_P;
+  TH1F* h1_kTruthC_Px;
+  TH1F* h1_kTruthC_Py;
+  TH1F* h1_kTruthC_Pz;
+  TH1F* h1_kTruthC_Theta;
+  TH1F* h1_kTruthC_Phi;
+  TH2F* h2_kTruthC_PxPy;
+  TH2F* h2_kTruthC_ThetaP;
+
+  TH1F* h1_eTruthC_E;
+  TH1F* h1_eTruthC_P;
+  TH1F* h1_eTruthC_Px;
+  TH1F* h1_eTruthC_Py;
+  TH1F* h1_eTruthC_Pz;
+  TH1F* h1_eTruthC_Theta;
+  TH1F* h1_eTruthC_Phi;
+  TH2F* h2_eTruthC_PxPy;
+  TH2F* h2_eTruthC_ThetaP;
+
+  // testing events
   TH1F* h1_trackCharge_Dist;
   TH1F* h1_trackPz_Dist;
   TH1F* h1_nTracks_Dist;
