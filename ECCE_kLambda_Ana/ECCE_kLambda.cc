@@ -1141,11 +1141,11 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
 
       }
     
-      h2_KTruth_pxpy_Weighted->Fill((k4Vect.Px()-kaon4VectTruth.Px())/(kaon4VectTruth.Px())*100, (kaon4Vect.Py()-kaon4VectTruth.Py())/(kaon4VectTruth.Py())*100, wgt);
+      h2_KTruth_pxpy_Weighted->Fill((kaon4Vect.Px()-kaon4VectTruth.Px())/(kaon4VectTruth.Px())*100, (kaon4Vect.Py()-kaon4VectTruth.Py())/(kaon4VectTruth.Py())*100, wgt);
       h2_eTruth_pxpy_Weighted->Fill((e4Vect.Px()-e4VectTruth.Px())/(e4VectTruth.Px())*100, (e4Vect.Py()-e4VectTruth.Py())/(e4VectTruth.Py())*100, wgt);
       h2_LTruth_pxpy_Weighted->Fill((l4Vect.Px()-l4VectTruth.Px())/(l4VectTruth.Px())*100, (l4Vect.Py()-l4VectTruth.Py())/(l4VectTruth.Py())*100, wgt);
 
-      h2_kTruth_pxpz_Weighted->Fill((kaon4Vect.Px()-kaon4VectTruth.Px())/(kaon4VectTruth.Px())*100, (kaon4Vect.Pz()-kaon4VectTruth.Pz())/(kaon4VectTruth.Pz())*100, wgt);
+      h2_KTruth_pxpz_Weighted->Fill((kaon4Vect.Px()-kaon4VectTruth.Px())/(kaon4VectTruth.Px())*100, (kaon4Vect.Pz()-kaon4VectTruth.Pz())/(kaon4VectTruth.Pz())*100, wgt);
       h2_eTruth_pxpz_Weighted->Fill((e4Vect.Px()-e4VectTruth.Px())/(e4VectTruth.Px())*100, (e4Vect.Pz()-e4VectTruth.Pz())/(e4VectTruth.Pz())*100, wgt);
       h2_LTruth_pxpz_Weighted->Fill((l4Vect.Px()-l4VectTruth.Px())/(l4VectTruth.Px())*100, (l4Vect.Pz()-l4VectTruth.Pz())/(l4VectTruth.Pz())*100, wgt);
 

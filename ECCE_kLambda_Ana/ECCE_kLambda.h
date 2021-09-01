@@ -112,6 +112,8 @@ class ECCE_kLambda : public SubsysReco
 
   double e_beam_energy;
   double ion_beam_energy;
+  double e_beam_pmag;
+  double ion_beam_pmag;
 
   double crossing_angle;
 
@@ -381,6 +383,16 @@ class ECCE_kLambda : public SubsysReco
   TH2F* h2_ZDC_XY;
   TH2F* h2_ZDC_XY_Smeared;
 
+  // 2D Kinematic analysis plots
+  TH2F* h2_t_ep;
+  TH2F* h2_t_Q2;
+  TH2F* h2_delta_t_t;
+  TH2F* h2_delta_t_t_Q2[7];
+
+  // 1D Kinematic analysis plots
+  TH1F* h1_t_Q2[7];
+  TH1F* h1_t_alt_Q2[7];
+
   // 1D distributions for each particle
   TH1F* h1_K_px_Weighted;
   TH1F* h1_K_py_Weighted;
@@ -486,11 +498,11 @@ class ECCE_kLambda : public SubsysReco
   TH1F* h1_eTruth_py_Smeared_Weighted;
   TH1F* h1_eTruth_pz_Smeared_Weighted;
   TH1F* h1_eTruth_E_Smeared_Weighted;
-  TH1F* h1_LTruth_p_Weighted;
-  TH1F* h1_LTruth_px_Weighted;
-  TH1F* h1_LTruth_py_Weighted;
-  TH1F* h1_LTruth_pz_Weighted;
-  TH1F* h1_LTruth_E_Weighted;
+  TH1F* h1_LTruth_p_Smeared_Weighted;
+  TH1F* h1_LTruth_px_Smeared_Weighted;
+  TH1F* h1_LTruth_py_Smeared_Weighted;
+  TH1F* h1_LTruth_pz_Smeared_Weighted;
+  TH1F* h1_LTruth_E_Smeared_Weighted;
 
   TH1F* h1_nTruth_p_Smeared_Weighted;
   TH1F* h1_nTruth_px_Smeared_Weighted;
@@ -509,6 +521,16 @@ class ECCE_kLambda : public SubsysReco
   TH1F* h1_g2Truth_py_Smeared_Weighted;
   TH1F* h1_g2Truth_pz_Smeared_Weighted;
   TH1F* h1_g2Truth_E_Smeared_Weighted;
+
+  // 1D Kinematic analysis plots
+  TH1F* h1_t_Q2_Weighted[7];
+  TH1F* h1_t_alt_Q2_Weighted[7];
+
+  // 2D Kinematic analysis plots
+  TH2F* h2_t_ep_Weighted;
+  TH2F* h2_t_Q2_Weighted;
+  TH2F* h2_delta_t_t_Weighted;
+  TH2F* h2_delta_t_t_Q2_Weighted[7];
 
   // 2D distributions 
   TH2F* h2_ZDC_XY_Weighted;
