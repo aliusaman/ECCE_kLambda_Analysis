@@ -377,6 +377,197 @@ class ECCE_kLambda : public SubsysReco
   TH1F* h1_nTracks_Dist;
   TH2F* h2_trackPvsTheta_Dist; 
 
+  // 2D distributions 
+  TH2F* h2_ZDC_XY;
+  TH2F* h2_ZDC_XY_Smeared;
+
+  // 1D distributions for each particle
+  TH1F* h1_K_px_Weighted;
+  TH1F* h1_K_py_Weighted;
+  TH1F* h1_K_pz_Weighted;
+  TH1F* h1_K_p_Weighted;
+  TH1F* h1_K_E_Weighted;
+  TH1F* h1_K_Theta_Weighted;
+  TH1F* h1_K_Phi_Weighted;
+  TH1F* h1_e_px_Weighted;
+  TH1F* h1_e_py_Weighted;
+  TH1F* h1_e_pz_Weighted;
+  TH1F* h1_e_p_Weighted;
+  TH1F* h1_e_E_Weighted;
+  TH1F* h1_e_Theta_Weighted;
+  TH1F* h1_e_Phi_Weighted;
+  TH1F* h1_L_px_Weighted;
+  TH1F* h1_L_py_Weighted;
+  TH1F* h1_L_pz_Weighted;
+  TH1F* h1_L_p_Weighted;
+  TH1F* h1_L_E_Weighted;
+  TH1F* h1_L_Theta_Weighted;
+  TH1F* h1_L_Phi_Weighted;
+
+  TH1F* h1_n_px_Weighted;
+  TH1F* h1_n_py_Weighted;
+  TH1F* h1_n_pz_Weighted;
+  TH1F* h1_n_p_Weighted;
+  TH1F* h1_n_E_Weighted;
+  TH1F* h1_n_Theta_Weighted;
+  TH1F* h1_n_Phi_Weighted;
+  TH1F* h1_g1_px_Weighted;
+  TH1F* h1_g1_py_Weighted;
+  TH1F* h1_g1_pz_Weighted;
+  TH1F* h1_g1_p_Weighted;
+  TH1F* h1_g1_E_Weighted;
+  TH1F* h1_g1_Theta_Weighted;
+  TH1F* h1_g1_Phi_Weighted;
+  TH1F* h1_g2_px_Weighted;
+  TH1F* h1_g2_py_Weighted;
+  TH1F* h1_g2_pz_Weighted;
+  TH1F* h1_g2_p_Weighted;
+  TH1F* h1_g2_E_Weighted;
+  TH1F* h1_g2_Theta_Weighted;
+  TH1F* h1_g2_Phi_Weighted;
+
+  TH1F* h1_Q2_Dist_Weighted;
+  TH1F* h1_W_Dist_Weighted;
+  TH1F* h1_t_Dist_Weighted;
+  TH1F* h1_t_alt_Dist_Weighted;
+  TH1F* h1_t_comp_Weighted;
+  TH1F* h1_xb_Dist_Weighted;
+  TH1F* h1_xi_Dist_Weighted;
+
+  TH1F* h1_Q2Truth_Dist_Weighted;
+  TH1F* h1_WTruth_Dist_Weighted;
+  TH1F* h1_tTruth_Dist_Weighted;
+  TH1F* h1_xbTruth_Dist_Weighted;
+  TH1F* h1_xiTruth_Dist_Weighted;
+
+  // Resolution test plots for unsmeared vectors
+  TH1F* h1_KTruth_p_Weighted;
+  TH1F* h1_KTruth_px_Weighted;
+  TH1F* h1_KTruth_py_Weighted;
+  TH1F* h1_KTruth_pz_Weighted;
+  TH1F* h1_KTruth_E_Weighted;
+  TH1F* h1_eTruth_p_Weighted;
+  TH1F* h1_eTruth_px_Weighted;
+  TH1F* h1_eTruth_py_Weighted;
+  TH1F* h1_eTruth_pz_Weighted;
+  TH1F* h1_eTruth_E_Weighted;
+  TH1F* h1_LTruth_p_Weighted;
+  TH1F* h1_LTruth_px_Weighted;
+  TH1F* h1_LTruth_py_Weighted;
+  TH1F* h1_LTruth_pz_Weighted;
+  TH1F* h1_LTruth_E_Weighted;
+
+  TH1F* h1_nTruth_p_Weighted;
+  TH1F* h1_nTruth_px_Weighted;
+  TH1F* h1_nTruth_py_Weighted;
+  TH1F* h1_nTruth_pz_Weighted;
+  TH1F* h1_nTruth_E_Weighted;
+
+  TH1F* h1_g1Truth_p_Weighted;
+  TH1F* h1_g1Truth_px_Weighted;
+  TH1F* h1_g1Truth_py_Weighted;
+  TH1F* h1_g1Truth_pz_Weighted;
+  TH1F* h1_g1Truth_E_Weighted;
+
+  TH1F* h1_g2Truth_p_Weighted;
+  TH1F* h1_g2Truth_px_Weighted;
+  TH1F* h1_g2Truth_py_Weighted;
+  TH1F* h1_g2Truth_pz_Weighted;
+  TH1F* h1_g2Truth_E_Weighted;
+
+  // Resolution test plots with smeared vectors
+  TH1F* h1_KTruth_p_Smeared_Weighted;
+  TH1F* h1_KTruth_px_Smeared_Weighted;
+  TH1F* h1_KTruth_py_Smeared_Weighted;
+  TH1F* h1_KTruth_pz_Smeared_Weighted;
+  TH1F* h1_KTruth_E_Smeared_Weighted;
+  TH1F* h1_eTruth_p_Smeared_Weighted;
+  TH1F* h1_eTruth_px_Smeared_Weighted;
+  TH1F* h1_eTruth_py_Smeared_Weighted;
+  TH1F* h1_eTruth_pz_Smeared_Weighted;
+  TH1F* h1_eTruth_E_Smeared_Weighted;
+  TH1F* h1_LTruth_p_Weighted;
+  TH1F* h1_LTruth_px_Weighted;
+  TH1F* h1_LTruth_py_Weighted;
+  TH1F* h1_LTruth_pz_Weighted;
+  TH1F* h1_LTruth_E_Weighted;
+
+  TH1F* h1_nTruth_p_Smeared_Weighted;
+  TH1F* h1_nTruth_px_Smeared_Weighted;
+  TH1F* h1_nTruth_py_Smeared_Weighted;
+  TH1F* h1_nTruth_pz_Smeared_Weighted;
+  TH1F* h1_nTruth_E_Smeared_Weighted;
+
+  TH1F* h1_g1Truth_p_Smeared_Weighted;
+  TH1F* h1_g1Truth_px_Smeared_Weighted;
+  TH1F* h1_g1Truth_py_Smeared_Weighted;
+  TH1F* h1_g1Truth_pz_Smeared_Weighted;
+  TH1F* h1_g1Truth_E_Smeared_Weighted;
+
+  TH1F* h1_g2Truth_p_Smeared_Weighted;
+  TH1F* h1_g2Truth_px_Smeared_Weighted;
+  TH1F* h1_g2Truth_py_Smeared_Weighted;
+  TH1F* h1_g2Truth_pz_Smeared_Weighted;
+  TH1F* h1_g2Truth_E_Smeared_Weighted;
+
+  // 2D distributions 
+  TH2F* h2_ZDC_XY_Weighted;
+  TH2F* h2_ZDC_XY_Smeared_Weighted;
+
+  // Particle Theta/Phi and Theta/p distributions
+  TH2F* h2_eTrack_ThetaPhi_Weighted;
+  TH2F* h2_eTrack_pTheta_Weighted;
+  TH2F* h2_KTrack_ThetaPhi_Weighted;
+  TH2F* h2_KTrack_pTheta_Weighted;
+  TH2F* h2_LTrack_ThetaPhi_Weighted;
+  TH2F* h2_LTrack_pTheta_Weighted;
+  TH2F* h2_eTrack_ThetaPhi_Smeared_Weighted;
+  TH2F* h2_eTrack_pTheta_Smeared_Weighted;
+  TH2F* h2_KTrack_ThetaPhi_Smeared_Weighted;
+  TH2F* h2_KTrack_pTheta_Smeared_Weighted;
+  TH2F* h2_LTrack_ThetaPhi_Smeared_Weighted;
+  TH2F* h2_LTrack_pTheta_Smeared_Weighted;
+
+  TH2F* h2_g2Track_ThetaPhi_Weighted;
+  TH2F* h2_g2Track_pTheta_Weighted;
+  TH2F* h2_g1Track_ThetaPhi_Weighted;
+  TH2F* h2_g1Track_pTheta_Weighted;
+  TH2F* h2_nTrack_ThetaPhi_Weighted;
+  TH2F* h2_nTrack_pTheta_Weighted;
+  TH2F* h2_g2Track_ThetaPhi_Smeared_Weighted;
+  TH2F* h2_g2Track_pTheta_Smeared_Weighted;
+  TH2F* h2_g1Track_ThetaPhi_Smeared_Weighted;
+  TH2F* h2_g1Track_pTheta_Smeared_Weighted;
+  TH2F* h2_nTrack_ThetaPhi_Smeared_Weighted;
+  TH2F* h2_nTrack_pTheta_Smeared_Weighted;
+
+  // 2D resolution test plots
+  TH2F* h2_eTruth_pxpy_Weighted;
+  TH2F* h2_KTruth_pxpy_Weighted;
+  TH2F* h2_LTruth_pxpy_Weighted;
+  TH2F* h2_eTruth_pxpz_Weighted;
+  TH2F* h2_KTruth_pxpz_Weighted;
+  TH2F* h2_LTruth_pxpz_Weighted;
+  TH2F* h2_eTruth_pypz_Weighted;
+  TH2F* h2_KTruth_pypz_Weighted;
+  TH2F* h2_LTruth_pypz_Weighted;
+  TH2F* h2_eTruth_pxpy_Smeared_Weighted;
+  TH2F* h2_KTruth_pxpy_Smeared_Weighted;
+  TH2F* h2_LTruth_pxpy_Smeared_Weighted;
+
+  TH2F* h2_g2Truth_pxpy_Weighted;
+  TH2F* h2_g1Truth_pxpy_Weighted;
+  TH2F* h2_nTruth_pxpy_Weighted;
+  TH2F* h2_g2Truth_pxpz_Weighted;
+  TH2F* h2_g1Truth_pxpz_Weighted;
+  TH2F* h2_nTruth_pxpz_Weighted;
+  TH2F* h2_g2Truth_pypz_Weighted;
+  TH2F* h2_g1Truth_pypz_Weighted;
+  TH2F* h2_nTruth_pypz_Weighted;
+  TH2F* h2_g2Truth_pxpy_Smeared_Weighted;
+  TH2F* h2_g1Truth_pxpy_Smeared_Weighted;
+  TH2F* h2_nTruth_pxpy_Smeared_Weighted;
+
 };
 
 #endif // ECCE_DEMP_ANA_H
