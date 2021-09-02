@@ -117,6 +117,8 @@ class ECCE_kLambda : public SubsysReco
 
   double crossing_angle;
 
+  double wgt;
+
   TLorentzVector r_lelectron;
 //  TLorentzVector r_lproton;
 

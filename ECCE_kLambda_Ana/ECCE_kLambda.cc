@@ -1,66 +1,3 @@
-//____________________________________________________________________________..
-//
-// This is a template for a Fun4All SubsysReco module with all methods from the
-// $OFFLINE_MAIN/include/fun4all/SubsysReco.h baseclass
-// You do not have to implement all of them, you can just remove unused methods
-// here and in ECCE_DEMP.h.
-//
-// ECCE_DEMP(const std::string &name = "ECCE_DEMP")
-// everything is keyed to ECCE_DEMP, duplicate names do work but it makes
-// e.g. finding culprits in logs difficult or getting a pointer to the module
-// from the command line
-//
-// ECCE_kLambda::~ECCE_kLambda()
-// this is called when the Fun4AllServer is deleted at the end of running. Be
-// mindful what you delete - you do loose ownership of object you put on the node tree
-//
-// int ECCE_kLambda::Init(PHCompositeNode *topNode)
-// This method is called when the module is registered with the Fun4AllServer. You
-// can create historgrams here or put objects on the node tree but be aware that
-// modules which haven't been registered yet did not put antyhing on the node tree
-//
-// int ECCE_kLambda::InitRun(PHCompositeNode *topNode)
-// This method is called when the first event is read (or generated). At
-// this point the run number is known (which is mainly interesting for raw data
-// processing). Also all objects are on the node tree in case your module's action
-// depends on what else is around. Last chance to put nodes under the DST Node
-// We mix events during readback if branches are added after the first event
-//
-// int ECCE_kLambda::process_event(PHCompositeNode *topNode)
-// called for every event. Return codes trigger actions, you find them in
-// $OFFLINE_MAIN/include/fun4all/Fun4AllReturnCodes.h
-//   everything is good:
-//     return Fun4AllReturnCodes::EVENT_OK
-//   abort event reconstruction, clear everything and process next event:
-//     return Fun4AllReturnCodes::ABORT_EVENT; 
-//   proceed but do not save this event in output (needs output manager setting):
-//     return Fun4AllReturnCodes::DISCARD_EVENT; 
-//   abort processing:
-//     return Fun4AllReturnCodes::ABORT_RUN
-// all other integers will lead to an error and abort of processing
-//
-// int ECCE_kLambda::ResetEvent(PHCompositeNode *topNode)
-// If you have internal data structures (arrays, stl containers) which needs clearing
-// after each event, this is the place to do that. The nodes under the DST node are cleared
-// by the framework
-//
-// int ECCE_kLambda::EndRun(const int runnumber)
-// This method is called at the end of a run when an event from a new run is
-// encountered. Useful when analyzing multiple runs (raw data). Also called at
-// the end of processing (before the End() method)
-//
-// int ECCE_kLambda::End(PHCompositeNode *topNode)
-// This is called at the end of processing. It needs to be called by the macro
-// by Fun4AllServer::End(), so do not forget this in your macro
-//
-// int ECCE_kLambda::Reset(PHCompositeNode *topNode)
-// not really used - it is called before the dtor is called
-//
-// void ECCE_kLambda::Print(const std::string &what) const
-// Called from the command line - useful to print information when you need it
-//
-//____________________________________________________________________________..
-
 #include "ECCE_kLambda.h"
 
 #include <fun4all/Fun4AllReturnCodes.h>
@@ -573,11 +510,11 @@ int ECCE_kLambda::Init(PHCompositeNode *topNode)
   e_beam_pmag = sqrt(pow(e_beam_energy,2)-pow(mElec,2));
   ion_beam_energy = 41;
   ion_beam_pmag = sqrt((pow(ion_beam_energy,2)-pow(mProt,2)));
-  crossing_angle = 0.05; 
-  Double_t Pi = TMath::ACos(-1);
+  crossing_angle = 0.025; 
+  //Double_t Pi = TMath::ACos(-1);
   eBeam4Vect.SetPxPyPzE(0,0,-1*e_beam_pmag,e_beam_energy);
-  pBeam4Vect.SetPxPyPzE(-ion_beam_pmag*TMath::Sin(crossing_angle),ion_beam_pmag*TMath::Sin(crossing_angle)*TMath::Sin(Pi),ion_beam_pmag*TMath::Cos(crossing_angle),ion_beam_energy);
-
+  pBeam4Vect.SetPxPyPzE(-ion_beam_pmag*TMath::Sin(crossing_angle),0,ion_beam_pmag*TMath::Cos(crossing_angle),ion_beam_energy);
+  // ion_beam_pmag*TMath::Sin(crossing_angle)*TMath::Sin(Pi) - old y component definiton, 0 by a long road :)
   return Fun4AllReturnCodes::EVENT_OK;
 }
 
@@ -592,58 +529,25 @@ int ECCE_kLambda::InitRun(PHCompositeNode *topNode)
 int ECCE_kLambda::process_event(PHCompositeNode *topNode)
 {
   EEMC_hit = 0;
-  //  Double_t Pi = TMath::ACos(-1);
-  //  eBeam4Vect.SetPxPyPzE(0,0,-5,5);
-  //  pBeam4Vect.SetPxPyPzE(-41*TMath::Sin(0.05),41*TMath::Sin(0.05)*TMath::Sin(Pi),41*TMath::Cos(0.05),41); // 5 on 41
 
   event_itt++; 
  
   if(event_itt%100 == 0)
      std::cout << "Event Processing Counter: " << event_itt << endl;
 
-  // made considering there is no ZDC
+  // Get event header info for the event (weight)
+  EicEventHeader* Evtheader = findNode::getClass<EicEventHeader>(topNode, "EicEventHeader");
+  wgt = Evtheader->get_demp_weight();
 
-
-  /*
-  // event testing code
-  // Get track map
-
-  SvtxTrackMap* trackmap = findNode::getClass<SvtxTrackMap>(topNode, "SvtxTrackMap");
-
-  if (!trackmap)
-    {
-      trackmap = findNode::getClass<SvtxTrackMap>(topNode, "TrackMap");
-      if (!trackmap)
-    	{
-    	  cout << "ECCE_kLambda::process_event - Error can not find DST trackmap node SvtxTrackMap" << endl;
-    	  exit(-1);
-    	}
-    }
-
-  Int_t numberTracks = 0;
-
-  // Loop over our tracks, assign info
-  for (SvtxTrackMap::Iter iter = trackmap->begin(); iter != trackmap->end();++iter) {
-    SvtxTrack* track = iter->second;
-    h1_trackCharge_Dist->Fill(track->get_charge());
-    h1_trackPz_Dist->Fill(track->get_pz());
-    trackVect.SetXYZ(track->get_px(), track->get_py(), track->get_pz());
-    track4Vect.SetPxPyPzE(track->get_px(), track->get_py(), track->get_pz(), sqrt(pow(trackVect.Mag(), 2)+pow(mKaonP,2)));
-    h2_trackPvsTheta_Dist->Fill(track4Vect.P(),track4Vect.Theta()*TMath::RadToDeg());
-    numberTracks++;
-    }
-
-  h1_nTracks_Dist->Fill(numberTracks);
-  */
-
-  if (Check_hits(topNode) == true && Check_eKaon(topNode) == true){
+  if (Check_hits(topNode) == true && Check_eKaon(topNode) == true){ // If check hits and check eKaon return true, do something for this event
     // Get track map
     SvtxTrackMap* trackmap = findNode::getClass<SvtxTrackMap>(topNode, "SvtxTrackMap");
     // Get MC truth info
     PHG4TruthInfoContainer *truthinfo = findNode::getClass<PHG4TruthInfoContainer>(topNode, "G4TruthInfo");
     // Get ZDC hits
     //    PHG4HitContainer* hits = findNode::getClass<PHG4HitContainer>(topNode, "G4HIT_ZDC");
-    PHG4HitContainer* hits = findNode::getClass<PHG4HitContainer>(topNode, "G4HIT_ZDCsurrogate");
+    // Nothing is actually done with this? Do you want to use the ZDC info somewhere?
+    //    PHG4HitContainer* hits = findNode::getClass<PHG4HitContainer>(topNode, "G4HIT_ZDCsurrogate");
     // Get the primary particle range
     PHG4TruthInfoContainer::Range range = truthinfo->GetPrimaryParticleRange();
     //Get the secondary particle range
@@ -662,11 +566,7 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
       return Fun4AllReturnCodes::EVENT_OK;
     }
 
-    /* if (hits) {
-      std::cout << "zdc" << endl;
-    } */
-
-    /// Loop over the G4 truth (stable) particles
+    // Loop over the G4 truth (stable) particles
     for (PHG4TruthInfoContainer::ConstIterator iter = range.first; iter != range.second; ++iter)
       {
 	/// Get this truth particle
@@ -688,16 +588,15 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
     Bool_t ZDCHits = kFALSE;
     Int_t nHits = 0;
     Int_t Gamma = kFALSE;
-
-    for (PHG4TruthInfoContainer::ConstIterator iter = range.first;iter != range.second;++iter)
+    
+    // I don't think these are getting the right quantities, this is still looping over truth, not truth_s
+    for (PHG4TruthInfoContainer::ConstIterator iter = range.first;iter != range.second;++iter) // Loop over all truth particles
     {
-	/// Get this truth particle
+      // Get this truth particle
 	const PHG4Particle *truth = iter->second;
-
         if (truth->get_pid() == 3122){ // PDG 3122 -> Lambda
-          for (PHG4TruthInfoContainer::ConstIterator iter_s = range_s.first; iter_s !=range_s.second; ++iter_s) {
+          for (PHG4TruthInfoContainer::ConstIterator iter_s = range_s.first; iter_s !=range_s.second; ++iter_s) { // For the lambda, iterate over daughters?
 	    const PHG4Particle *truth_s = iter_s->second;
-
              if ( truth->get_pid() == 2112){ // PDG 2112 -> Neutron
   	       n4VectTruth.SetPxPyPzE(truth_s->get_px(), truth_s->get_py(), truth_s->get_pz(), truth_s->get_e());
 	       nHits++;
@@ -717,29 +616,23 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
 	       Gamma = kTRUE;
 	     }
 	  }
-
 	  Bool_t Energy = kFALSE;
-
 	  if (nHits == 3 && ZDCEnergy >= 10) {
 	    Energy = kTRUE;
 	  }
-
 	  else if (l4VectTruth.E() >= 10) {
 	    Energy = kTRUE;
-          }
-	      
+          }   
           Double_t diffPhi = TMath::Abs((g14VectTruth.Phi()*TMath::RadToDeg())-(g24VectTruth.Phi()*TMath::RadToDeg()));
           Bool_t Phi = kFALSE;
-
           if (diffPhi >= 170 && diffPhi <= 190) {
             Phi = kTRUE;		
 	  }
-		
 	  if (Phi == kTRUE && Energy == kTRUE) {
 	    ZDCHits = kTRUE;
 	  }
         }
-      }
+    }
 
     // Loop over our tracks, assign info
     for (SvtxTrackMap::Iter iter = trackmap->begin(); iter != trackmap->end();++iter)
@@ -765,6 +658,7 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
     // Calculate kinematic quantities
     virtphoton4Vect = eBeam4Vect - e4Vect;
     t4Vect = virtphoton4Vect - kaon4Vect;
+    // Need t_alt (t from lambda and the hadron beam)
     pmiss4Vect = (eBeam4Vect + pBeam4Vect) - (e4Vect+kaon4Vect);
     s4Vect = eBeam4Vect + pBeam4Vect; // added by Maggie Kerr, August 2, 2021 // are these the right 4 vectors?
     // s4Vect = virtphoton4Vect + pBeam4Vect; // added by Maggie Kerr, August 2, 2021 // are these the right 4 vectors?
@@ -948,7 +842,6 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
     h2_ZDC_XY->Fill(nZDCPos.x(), nZDCPos.y());
     h2_ZDC_XY_Smeared->Fill(nZDCPosSmeared.x(), nZDCPosSmeared.y());
 
-
     // Fill weighted histograms
     h1_K_px_Weighted->Fill(kaon4Vect.Px(), wgt);
     h1_K_py_Weighted->Fill(kaon4Vect.Py(), wgt);
@@ -1003,8 +896,8 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
     h1_Q2_Dist_Weighted->Fill(Q2, wgt);
     h1_W_Dist_Weighted->Fill(W, wgt);
     h1_t_Dist_Weighted->Fill(t, wgt);
-    h1_t_alt_Dist_Weighted->Fill(t_alt, wgt);
-    h1_t_comp_Weighted->Fill(((t_alt-t)/t)*100, wgt);
+    //h1_t_alt_Dist_Weighted->Fill(t_alt, wgt); // t_alt undefined currently
+    //h1_t_comp_Weighted->Fill(((t_alt-t)/t)*100, wgt);
     h1_xb_Dist_Weighted->Fill(xb, wgt);
     h1_xi_Dist_Weighted->Fill(xi, wgt);
 
@@ -1023,9 +916,10 @@ int ECCE_kLambda::process_event(PHCompositeNode *topNode)
       Double_t Q2_high = 10+(B*5);
       if ( Q2_truth > Q2_low && Q2_truth < Q2_high){
 	h1_t_Q2_Weighted[B]->Fill(t, wgt);
-	h1_t_alt_Q2_Weighted[B]->Fill(t_alt, wgt);
+	//h1_t_alt_Q2_Weighted[B]->Fill(t_alt, wgt);
 	h2_delta_t_t_Q2_Weighted[B]->Fill(((t - t_truth)/t_truth)*100, t, wgt);
       }
+    }
 
       h1_KTruth_p_Weighted->Fill((kaon4Vect.P()-kaon4VectTruth.P())/(kaon4VectTruth.P())*100, wgt);
       h1_KTruth_px_Weighted->Fill((kaon4Vect.Px()-kaon4VectTruth.Px())/(kaon4VectTruth.Px())*100, wgt);

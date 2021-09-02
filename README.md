@@ -46,9 +46,7 @@ make install
 
 ### Now - copy in the latest versions of the actual script and rebuild the module
 
-cp /home/fun4all/work/ECCE_kLambda_Analysis/ECCE_kLambda_Ana/ECCE_kLambda.* ../
-
-make install
+cp /home/fun4all/work/ECCE_kLambda_Analysis/ECCE_kLambda_Ana/ECCE_kLambda.* ./ && make install
 
 ### Do this whenever you want to actually re-build the plugin!
 
